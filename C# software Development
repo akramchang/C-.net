@@ -1,0 +1,425 @@
+using System;
+// Task 1!!
+//class TemperatureConverter
+//{
+//    static void Main(string[] args)
+//    {
+//        Console.WriteLine("Temperature Converter");
+//        Console.WriteLine("Enter the temperature value:");
+//        double temperature = Convert.ToDouble(Console.ReadLine());
+
+//        Console.WriteLine("Enter the original unit of measurement (C for Celsius, F for Fahrenheit, K for Kelvin):");
+//        string originalUnit = Console.ReadLine().ToUpper();
+
+//        double celsius, fahrenheit, kelvin;
+
+//        switch (originalUnit)
+//        {
+//            case "C":
+//                celsius = temperature;
+//                fahrenheit = CelsiusToFahrenheit(celsius);
+//                kelvin = CelsiusToKelvin(celsius);
+//                break;
+
+//            case "F":
+//                fahrenheit = temperature;
+//                celsius = FahrenheitToCelsius(fahrenheit);
+//                kelvin = CelsiusToKelvin(celsius);
+//                break;
+
+//            case "K":
+//                kelvin = temperature;
+//                celsius = KelvinToCelsius(kelvin);
+//                fahrenheit = CelsiusToFahrenheit(celsius);
+//                break;
+
+//            default:
+//                Console.WriteLine("Invalid unit of measurement.");
+//                return;
+//        }
+
+//        Console.WriteLine($"Original temperature: {temperature} {originalUnit}");
+//        Console.WriteLine($"Celsius: {celsius} C");
+//        Console.WriteLine($"Fahrenheit: {fahrenheit} F");
+//        Console.WriteLine($"Kelvin: {kelvin} K");
+//    }
+
+//    static double CelsiusToFahrenheit(double celsius)
+//    {
+//        return (celsius * 9 / 5) + 32;
+//    }
+
+//    static double CelsiusToKelvin(double celsius)
+//    {
+//        return celsius + 273.15;
+//    }
+
+//    static double FahrenheitToCelsius(double fahrenheit)
+//    {
+//        return (fahrenheit - 32) * 5 / 9;
+//    }
+
+//    static double KelvinToCelsius(double kelvin)
+//    {
+//        return kelvin - 273.15;
+//    }
+//}
+
+// Task 2!!
+//using System;
+
+//class NumberGuessingGame
+//{
+//    static void Main(string[] args)
+//    {
+//        Random random = new Random();
+//        int randomNumber = random.Next(1, 101); // Generates a random number between 1 and 100
+//        int userGuess = 0;
+//        int attempts = 0;
+
+//        Console.WriteLine("Welcome to the Number Guessing Game!");
+//        Console.WriteLine("I have generated a random number between 1 and 100.");
+//        Console.WriteLine("Can you guess what it is?");
+
+//        while (userGuess != randomNumber)
+//        {
+//            Console.Write("Enter your guess: ");
+//            string input = Console.ReadLine();
+
+//            // Validate user input
+//            if (int.TryParse(input, out userGuess))
+//            {
+//                attempts++;
+
+//                if (userGuess < randomNumber)
+//                {
+//                    Console.WriteLine("Too low! Try again.");
+//                }
+//                else if (userGuess > randomNumber)
+//                {
+//                    Console.WriteLine("Too high! Try again.");
+//                }
+//                else
+//                {
+//                    Console.WriteLine($"Congratulations! You've guessed the number {randomNumber} correctly.");
+//                    Console.WriteLine($"It took you {attempts} attempts.");
+//                }
+//            }
+//            else
+//            {
+//                Console.WriteLine("Invalid input. Please enter a valid number.");
+//            }
+//        }
+//    }
+//}
+
+//task 3!!
+//using System;
+//using System.Collections.Generic;
+//using System.IO;
+
+//class ContactManager
+//{
+//    private static string filePath = "contacts.txt";
+//    private static List<Contact> contacts = new List<Contact>();
+
+//    static void Main(string[] args)
+//    {
+//        LoadContacts();
+
+//        while (true)
+//        {
+//            Console.WriteLine("Contact Manager");
+//            Console.WriteLine("1. Add Contact");
+//            Console.WriteLine("2. View Contacts");
+//            Console.WriteLine("3. Edit Contact");
+//            Console.WriteLine("4. Delete Contact");
+//            Console.WriteLine("5. Exit");
+//            Console.Write("Choose an option: ");
+//            string option = Console.ReadLine();
+
+//            switch (option)
+//            {
+//                case "1":
+//                    AddContact();
+//                    break;
+//                case "2":
+//                    ViewContacts();
+//                    break;
+//                case "3":
+//                    EditContact();
+//                    break;
+//                case "4":
+//                    DeleteContact();
+//                    break;
+//                case "5":
+//                    SaveContacts();
+//                    return;
+//                default:
+//                    Console.WriteLine("Invalid option. Please try again.");
+//                    break;
+//            }
+//        }
+//    }
+
+//    static void AddContact()
+//    {
+//        Console.Write("Enter name: ");
+//        string name = Console.ReadLine();
+//        Console.Write("Enter phone number: ");
+//        string phoneNumber = Console.ReadLine();
+//        Console.Write("Enter email address: ");
+//        string email = Console.ReadLine();
+
+//        contacts.Add(new Contact(name, phoneNumber, email));
+//        Console.WriteLine("Contact added successfully.");
+//    }
+
+//    static void ViewContacts()
+//    {
+//        Console.WriteLine("Contact List:");
+//        for (int i = 0; i < contacts.Count; i++)
+//        {
+//            Console.WriteLine($"{i + 1}. {contacts[i]}");
+//        }
+//    }
+
+//    static void EditContact()
+//    {
+//        ViewContacts();
+//        Console.Write("Enter the number of the contact you want to edit: ");
+//        if (int.TryParse(Console.ReadLine(), out int index) && index > 0 && index <= contacts.Count)
+//        {
+//            index--; // Convert to zero-based index
+//            Console.Write("Enter new name (leave blank to keep current): ");
+//            string name = Console.ReadLine();
+//            Console.Write("Enter new phone number (leave blank to keep current): ");
+//            string phoneNumber = Console.ReadLine();
+//            Console.Write("Enter new email address (leave blank to keep current): ");
+//            string email = Console.ReadLine();
+
+//            if (!string.IsNullOrWhiteSpace(name))
+//            {
+//                contacts[index].Name = name;
+//            }
+//            if (!string.IsNullOrWhiteSpace(phoneNumber))
+//            {
+//                contacts[index].PhoneNumber = phoneNumber;
+//            }
+//            if (!string.IsNullOrWhiteSpace(email))
+//            {
+//                contacts[index].Email = email;
+//            }
+
+//            Console.WriteLine("Contact updated successfully.");
+//        }
+//        else
+//        {
+//            Console.WriteLine("Invalid contact number.");
+//        }
+//    }
+
+//    static void DeleteContact()
+//    {
+//        ViewContacts();
+//        Console.Write("Enter the number of the contact you want to delete: ");
+//        if (int.TryParse(Console.ReadLine(), out int index) && index > 0 && index <= contacts.Count)
+//        {
+//            index--; // Convert to zero-based index
+//            contacts.RemoveAt(index);
+//            Console.WriteLine("Contact deleted successfully.");
+//        }
+//        else
+//        {
+//            Console.WriteLine("Invalid contact number.");
+//        }
+//    }
+
+//    static void LoadContacts()
+//    {
+//        if (File.Exists(filePath))
+//        {
+//            string[] lines = File.ReadAllLines(filePath);
+//            foreach (string line in lines)
+//            {
+//                string[] parts = line.Split('|');
+//                if (parts.Length == 3)
+//                {
+//                    contacts.Add(new Contact(parts[0], parts[1], parts[2]));
+//                }
+//            }
+//        }
+//    }
+
+//    static void SaveContacts()
+//    {
+//        List<string> lines = new List<string>();
+//        foreach (Contact contact in contacts)
+//        {
+//            lines.Add($"{contact.Name}|{contact.PhoneNumber}|{contact.Email}");
+//        }
+//        File.WriteAllLines(filePath, lines);
+//    }
+
+//    class Contact
+//    {
+//        public string Name { get; set; }
+//        public string PhoneNumber { get; set; }
+//        public string Email { get; set; }
+
+//        public Contact(string name, string phoneNumber, string email)
+//        {
+//            Name = name;
+//            PhoneNumber = phoneNumber;
+//            Email = email;
+//        }
+
+//        public override string ToString()
+//        {
+//            return $"Name: {Name}, Phone: {PhoneNumber}, Email: {Email}";
+//        }
+//    }
+//}
+
+// Task 4!!
+
+//using System;
+
+//class SudokuSolver
+//{
+//    const int Size = 9;
+
+//    static void Main(string[] args)
+//    {
+//        int[,] grid = new int[Size, Size]
+//        {
+//            { 5, 3, 0, 0, 7, 0, 0, 0, 0 },
+//            { 6, 0, 0, 1, 9, 5, 0, 0, 0 },
+//            { 0, 9, 8, 0, 0, 0, 0, 6, 0 },
+//            { 8, 0, 0, 0, 6, 0, 0, 0, 3 },
+//            { 4, 0, 0, 8, 0, 3, 0, 0, 1 },
+//            { 7, 0, 0, 0, 2, 0, 0, 0, 6 },
+//            { 0, 6, 0, 0, 0, 0, 2, 8, 0 },
+//            { 0, 0, 0, 4, 1, 9, 0, 0, 5 },
+//            { 0, 0, 0, 0, 8, 0, 0, 7, 9 }
+//        };
+
+//        Console.WriteLine("Original Sudoku Grid:");
+//        PrintGrid(grid);
+
+//        if (SolveSudoku(grid))
+//        {
+//            Console.WriteLine("\nSolved Sudoku Grid:");
+//            PrintGrid(grid);
+//        }
+//        else
+//        {
+//            Console.WriteLine("No solution exists for the given Sudoku puzzle.");
+//        }
+//    }
+
+//    static bool SolveSudoku(int[,] grid)
+//    {
+//        int row = 0, col = 0;
+
+//        if (!FindUnassignedLocation(grid, ref row, ref col))
+//        {
+//            return true; // puzzle solved
+//        }
+
+//        for (int num = 1; num <= 9; num++)
+//        {
+//            if (IsSafe(grid, row, col, num))
+//            {
+//                grid[row, col] = num;
+
+//                if (SolveSudoku(grid))
+//                {
+//                    return true;
+//                }
+
+//                grid[row, col] = 0; // undo assignment (backtrack)
+//            }
+//        }
+
+//        return false; // triggers backtracking
+//    }
+
+//    static bool FindUnassignedLocation(int[,] grid, ref int row, ref int col)
+//    {
+//        for (row = 0; row < Size; row++)
+//        {
+//            for (col = 0; col < Size; col++)
+//            {
+//                if (grid[row, col] == 0)
+//                {
+//                    return true;
+//                }
+//            }
+//        }
+
+//        return false;
+//    }
+
+//    static bool IsSafe(int[,] grid, int row, int col, int num)
+//    {
+//        return !UsedInRow(grid, row, num) &&
+//               !UsedInCol(grid, col, num) &&
+//               !UsedInBox(grid, row - row % 3, col - col % 3, num);
+//    }
+
+//    static bool UsedInRow(int[,] grid, int row, int num)
+//    {
+//        for (int col = 0; col < Size; col++)
+//        {
+//            if (grid[row, col] == num)
+//            {
+//                return true;
+//            }
+//        }
+
+//        return false;
+//    }
+
+//    static bool UsedInCol(int[,] grid, int col, int num)
+//    {
+//        for (int row = 0; row < Size; row++)
+//        {
+//            if (grid[row, col] == num)
+//            {
+//                return true;
+//            }
+//        }
+
+//        return false;
+//    }
+
+//    static bool UsedInBox(int[,] grid, int boxStartRow, int boxStartCol, int num)
+//    {
+//        for (int row = 0; row < 3; row++)
+//        {
+//            for (int col = 0; col < 3; col++)
+//            {
+//                if (grid[row + boxStartRow, col + boxStartCol] == num)
+//                {
+//                    return true;
+//                }
+//            }
+//        }
+
+//        return false;
+//    }
+
+//    static void PrintGrid(int[,] grid)
+//    {
+//        for (int row = 0; row < Size; row++)
+//        {
+//            for (int col = 0; col < Size; col++)
+//            {
+//                Console.Write(grid[row, col] + " ");
+//            }
+//            Console.WriteLine();
+//        }
+//    }
+//}
+
